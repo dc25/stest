@@ -1,8 +1,9 @@
-#! /bin/bash
-git --work-tree=_site checkout publish
-rm -rf  _site 
-jekyll build
-git --work-tree=_site add --all 
-git --work-tree=_site commit -m "autogen: update site" 
-git --work-tree=_site checkout master
-# git --git-dir=.git --work-tree=_site push
+  rm -rf _site
+  jekyll build
+  git branch -D gh-pages
+  git checkout --orphan gh-pages
+  git rm -rf .
+  git --work-tree _site/ add .
+  git --work-tree _site commit -a -m 'gh-pages commit'
+  git --work-tree _site push -f origin gh-pages
+  git checkout master
